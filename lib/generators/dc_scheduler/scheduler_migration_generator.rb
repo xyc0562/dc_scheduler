@@ -3,7 +3,7 @@ module DcScheduler
     def create_initializer_file
       ts = Time.now.strftime '%Y%m%d%H%M%S'
       create_file "db/migrate/#{ts}_dc_scheduler_create_tables.rb", <<EOF
-class ScheduleExecution < DcScheduler::ScheduleExecution
+class DcSchedulerCreateTables < ActiveRecord::Migration
   execute <<-SQL
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'schedule_execution_status') THEN
     CREATE OR REPLACE TYPE schedule_execution_status AS ENUM
