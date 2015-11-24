@@ -7,6 +7,7 @@ require 'dc_scheduler/schedule_execution'
 require 'dc_scheduler/schedule_execution_item'
 require 'dc_scheduler/schedule_executor'
 require 'dc_scheduler/schedule_manager'
+require 'dc_scheduler/proxied_job'
 require 'dc_scheduler/utils'
 
 module DcScheduler;end
