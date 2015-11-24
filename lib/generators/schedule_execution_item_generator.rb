@@ -1,8 +1,7 @@
 class ScheduleExecutionItemGenerator < Rails::Generators::Base
   def create_initializer_file
     create_file 'app/models/schedule_execution_item.rb', <<EOF
-class ScheduleExecutionItem < ActiveRecord::Base
-  include DcScheduler::ScheduleExecutionItem
+class ScheduleExecutionItem < DcScheduler::ScheduleExecutionItem
 end
 EOF
   end
