@@ -88,8 +88,14 @@ module DcScheduler
 
     ##
     # Convenient enqueue method, encapsulating current tenant and schedule_execution_id
+    def enqueue_tenant(job_klass, tenant, *args)
+      Resque.enqueue job_klass, tenant, @schedule_execution.id, @idx+=1, *args
+    end
+
+    ##
+    # Convenient enqueue method, encapsulating current tenant and schedule_execution_id
     def enqueue(job_klass, *args)
-      Resque.enqueue job_klass, Apartment::Tenant.current, @schedule_execution.id, @idx+=1, *args
+      enqueue_tenant job_klass, Apartment::Tenant.current, *args
     end
 
     ##

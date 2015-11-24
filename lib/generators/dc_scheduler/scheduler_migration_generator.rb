@@ -5,10 +5,13 @@ module DcScheduler
       create_file "db/migrate/#{ts}_dc_scheduler_create_tables.rb", <<EOF
 class DcSchedulerCreateTables < ActiveRecord::Migration
   execute <<-SQL
-  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'schedule_execution_status') THEN
-    CREATE OR REPLACE TYPE schedule_execution_status AS ENUM
-      ('INITIALIZING', 'INIT_FAILED', 'RUNNING', 'FAILED', 'PARTIALLY_SUCCESSFUL', 'SUCCESSFUL', 'CANCELED');
-  END IF;
+  DO $$
+  BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'schedule_execution_status') THEN
+      CREATE TYPE schedule_execution_status AS ENUM
+        ('INITIALIZING', 'INIT_FAILED', 'RUNNING', 'FAILED', 'PARTIALLY_SUCCESSFUL', 'SUCCESSFUL', 'CANCELED');
+    END IF;
+  END$$;
   SQL
   create_table :schedules do |t|
     t.string :name, unique: true, null: false
