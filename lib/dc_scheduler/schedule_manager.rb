@@ -98,6 +98,9 @@ module DcScheduler
             schedule.active = true
             schedule.after = Time.now
             schedule.allow_makeup = allow_makeup
+            if block_given?
+              yield schedule
+            end
             schedule.save!
             # Continue to create and store job
             register_schedule schedule, now
@@ -107,9 +110,6 @@ module DcScheduler
             Rails.logger.error $!
             # Rethrow exception
             raise $!
-          end
-          if block_given?
-            yield schedule
           end
         end
         schedule
