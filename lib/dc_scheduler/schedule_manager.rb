@@ -5,9 +5,8 @@ module DcScheduler
       # This is actually creating a GLOBAL variable
       # Not sure if this is the best way of dealing with
       # this problem.
-      def init_tenant_schedulers
+      def init_tenant_schedulers(all_tenants)
         $_schedulers = Hash.new
-        all_tenants = Client.all_active_tenants
         all_tenants.each do |tenant|
           scheduler = Rufus::Scheduler.new
           # Dynamically attach tenant key to the scheduler
@@ -24,9 +23,8 @@ module DcScheduler
       # 1. Make up for any missed schedule (if target schedule permits make-up)
       # 2. Send valid schedules to rufus (valid means not expired and currently active)
       # Note that synchronization is done for both global tenant and all client tenants
-      def sync_schedule_for_tenants
+      def sync_schedule_for_tenants(all_tenants)
         cur_tenant = Apartment::Tenant.current
-        all_tenants = Client.all_active_tenants.push 'public'
         begin
           all_tenants.each do |tenant|
             Apartment::Tenant.switch! tenant
