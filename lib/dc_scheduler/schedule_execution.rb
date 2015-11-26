@@ -4,7 +4,7 @@ module DcScheduler
       idx = params[:idx]
       # Always get item's last execution's parameters
       # in the future, we may want to consider overriding parameters as well
-      args = items.find_by(idx: idx).executions[-1]['params']
+      args = items.find_by(idx: idx).executions[-1]['meta']['params']
       # Queue up
       Resque.enqueue *([args[0].constantize, args[1..-1]].flatten)
     end
