@@ -5,10 +5,10 @@ module DcScheduler
       # This is actually creating a GLOBAL variable
       # Not sure if this is the best way of dealing with
       # this problem.
-      def init_tenant_schedulers(all_tenants)
+      def init_tenant_schedulers(all_tenants, options={})
         $_schedulers = Hash.new
         all_tenants.each do |tenant|
-          scheduler = Rufus::Scheduler.new
+          scheduler = Rufus::Scheduler.new options
           # Dynamically attach tenant key to the scheduler
           class << scheduler
             attr_accessor :tenant
