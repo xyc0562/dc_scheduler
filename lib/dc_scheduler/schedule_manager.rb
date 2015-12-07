@@ -76,7 +76,8 @@ module DcScheduler
       def create_schedule(name, desc, executor_name, schedule_data, trigger_point, options={})
         options = {
             delegated: true,
-            allow_makeup: false
+            allow_makeup: false,
+            register: true
         }.merge options
         allow_makeup = options[:allow_makeup]
         delegated = options[:delegated]
@@ -103,7 +104,7 @@ module DcScheduler
             end
             schedule.save!
             # Continue to create and store job
-            register_schedule schedule, now
+            register_schedule schedule, now if options[:register]
             Rails.logger.info "Created schedule: #{schedule.to_s}. Next trigger is: #{schedule.next_trigger_at}."
           rescue
             Rollbar.error $!
