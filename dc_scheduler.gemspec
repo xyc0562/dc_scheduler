@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rufus-scheduler", "~> 3.1.8"
   s.add_dependency "resque", "~> 1.25.2"
   s.add_dependency "parse-cron", "~> 0.1.4"
-  s.add_dependency "rollbar", "~> 1.5.1"
+  s.add_dependency "rollbar"
   s.add_dependency "apartment", "~> 1.0.2"
 
   s.add_development_dependency "sqlite3"
